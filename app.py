@@ -29,7 +29,10 @@ PASSPHRASE = os.environ.get("PASSPHRASE", "")
 TESTNET = os.environ.get("TESTNET", "1") == "1"
 
 BASE_URL = "https://demo-fapi.binance.com" if TESTNET else "https://fapi.binance.com"
-client = UMFutures(key=BINANCE_KEY, secret=BINANCE_SECRET, base_url=BASE_URL)
+
+_PROXY = os.environ.get("FIXIE_URL", "")
+_prx = {"http": _PROXY, "https": _PROXY} if _PROXY else None
+client = UMFutures(key=BINANCE_KEY, secret=BINANCE_SECRET, base_url=BASE_URL, proxies=_prx)
 
 AKSIYONLAR = {
     "open_long":   ("BUY",  False),
